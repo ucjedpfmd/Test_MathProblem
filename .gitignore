@@ -1,0 +1,27 @@
+# 手动配置的忽略文件
+*.user
+*.csproj
+*.sln
+*.DS_Store
+*.suo
+*.svn
+
+# Unity3D Generated File On Crash Reports
+*.proto.meta
+*.lua.meta
+
+# 文件夹前面不加反斜杠的都是递归查找
+# 忽略当前项目根目录下的文件夹
+.idea/
+/.idea/
+/Platform/.idea/
+.vs/
+MingUI/.vs/
+MingUI/obj/
+MingUI/bin
+m22VSCode.code-workspace
+Library/MonoManager.asset
+Library/
+Logs/
+obj/
+Temp/
