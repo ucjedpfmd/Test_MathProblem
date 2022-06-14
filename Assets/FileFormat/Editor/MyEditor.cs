@@ -52,24 +52,35 @@ public class Excel4Unity : Editor {
         }
     }
 
+    public int[] rangeList = new[] { 0, 1, 2 };
     private static string[] GetCaleArr() {
-        var emptyNum = Random.Range(0, 3);
+        var emptyNum = 0;
+        var r = Random.Range(0, 10000);
+        if (r < 500) {
+            emptyNum = 0;
+        }else if (r < 1000) {
+            emptyNum = 1;
+        } else {
+            emptyNum = 2;
+        }
+        
+       
         var symbolVal = Random.Range(0, 2) == 0 ? "+" : "-";
         var valArr = new[] { "", "", "", symbolVal };
         valArr[emptyNum] = "(  )";
         if (emptyNum == 0) {
             valArr[1] = Random.Range(0, 10).ToString();
             if (symbolVal == "+") {
-                valArr[2] = Random.Range(int.Parse(valArr[1]), 11).ToString();
+                valArr[2] = Random.Range(int.Parse(valArr[1]), 21).ToString();
             } else {
-                valArr[2] = Random.Range(0, 11 - int.Parse(valArr[1])).ToString();
+                valArr[2] = Random.Range(0, 20 - int.Parse(valArr[1])).ToString();
             }
         } else if (emptyNum == 1) {
             if (symbolVal == "+") {
-                valArr[0] = Random.Range(0, 10).ToString();
-                valArr[2] = (Random.Range(int.Parse(valArr[0]), 11)).ToString();
+                valArr[0] = Random.Range(10, 20).ToString();
+                valArr[2] = (Random.Range(int.Parse(valArr[0]), 21)).ToString();
             } else {
-                valArr[0] = Random.Range(5, 10).ToString();
+                valArr[0] = Random.Range(10, 20).ToString();
                 valArr[2] = Random.Range(0, int.Parse(valArr[0]) + 1).ToString();
             }
         } else if (emptyNum == 2) {
@@ -77,8 +88,8 @@ public class Excel4Unity : Editor {
                 valArr[0] = Random.Range(5, 10).ToString();
                 valArr[1] = Random.Range(5, 10).ToString();
             } else {
-                valArr[0] = Random.Range(5, 10).ToString();
-                valArr[1] = (Random.Range(0, int.Parse(valArr[0]) + 1)).ToString();
+                valArr[0] = Random.Range(10, 20).ToString();
+                valArr[1] = (Random.Range(0, 10)).ToString();
             }
         }
 
