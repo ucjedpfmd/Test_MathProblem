@@ -33,12 +33,10 @@ public class ExcelHelper
             ExcelWorksheet sheet = ep.Workbook.Worksheets.Add(table.TableName);
             sheet.PrinterSettings.RightMargin = 1M / 2.54M;
             sheet.PrinterSettings.LeftMargin = 1M / 2.54M;
-            sheet.PrinterSettings.TopMargin = 0.5M / 2.54M;
-            sheet.PrinterSettings.BottomMargin = 0.5M / 2.54M;
             var widthArr = new[]
                 { 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, };
             var heightArr = new[]
-                { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,30, 30, 30, 30, 30, 30,30, 30, 30, 30, 30, 30,30,30, 30,30};
+                { 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,25, 25, 25, 25, 25, 25,25, 25, 25, 25, 25, 25,25,25, 25,25};
            
             sheet.InsertColumn(1, widthArr.Length);
             sheet.InsertRow(1, heightArr.Length);
@@ -57,9 +55,6 @@ public class ExcelHelper
                     cell.Style.Font.Name = "宋体";
                     cell.Style.Font.Size = 14;
                     cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    if (column == 5 || column == 11 || column == 17 || column == 23) {
-                        cell.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                    }
                     sheet.Cells[row, column].Value = table.GetValue(row, column);
                 }
             }
