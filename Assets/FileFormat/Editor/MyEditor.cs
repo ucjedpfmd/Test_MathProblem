@@ -9,7 +9,7 @@ public class Excel4Unity : Editor {
         string filePath = $"{Application.dataPath}/abc.xlsx";
         if (File.Exists(filePath)) {
             Excel xls = ExcelHelper.LoadExcel(filePath);
-            var len = 100;
+            var len = 20;
             var firstTable = xls.Tables[0];
             xls.Tables.Clear();
             for (int j = 0; j < len; j++) {
@@ -25,28 +25,28 @@ public class Excel4Unity : Editor {
                 }
                 
                 for (int i = starRow; i < starRow + 25; i++) {
-                    var calcArr = GetCaleArr();
+                    var calcArr = GetCaleArrFeiZai();
                     table.SetValue(i, 1, calcArr[0]);
                     table.SetValue(i, 2, calcArr[3]);
                     table.SetValue(i, 3, calcArr[1]);
                     table.SetValue(i, 4, "=");
                     table.SetValue(i, 5, calcArr[2]);
 
-                    calcArr = GetCaleArr();
+                    calcArr = GetCaleArrFeiZai();
                     table.SetValue(i, 7, calcArr[0]);
                     table.SetValue(i, 8, calcArr[3]);
                     table.SetValue(i, 9, calcArr[1]);
                     table.SetValue(i, 10, "=");
                     table.SetValue(i, 11, calcArr[2]);
 
-                    calcArr = GetCaleArr();
+                    calcArr = GetCaleArrFeiZai();
                     table.SetValue(i, 13, calcArr[0]);
                     table.SetValue(i, 14, calcArr[3]);
                     table.SetValue(i, 15, calcArr[1]);
                     table.SetValue(i, 16, "=");
                     table.SetValue(i, 17, calcArr[2]);
 
-                    calcArr = GetCaleArr();
+                    calcArr = GetCaleArrFeiZai();
                     table.SetValue(i, 19, calcArr[0]);
                     table.SetValue(i, 20, calcArr[3]);
                     table.SetValue(i, 21, calcArr[1]);
@@ -73,7 +73,7 @@ public class Excel4Unity : Editor {
         var maxEmpty2Value = 1;
         if (emptyNum == 0) {
             if (symbolVal == "+") {
-                valArr[1] = Random.Range(1, maxValue).ToString();
+                valArr[1] = Random.Range(1, maxValue - 25).ToString();
                 valArr[2] = Random.Range(int.Parse(valArr[1]), maxValue).ToString();
             } else {
                 valArr[1] = Random.Range(1, maxValue).ToString();
@@ -81,7 +81,7 @@ public class Excel4Unity : Editor {
             }
         } else if (emptyNum == 1) {
             if (symbolVal == "+") {
-                valArr[0] = Random.Range(1, maxValue).ToString();
+                valArr[0] = Random.Range(1, maxValue - 25).ToString();
                 valArr[2] = (Random.Range(int.Parse(valArr[0]), maxValue)).ToString();
             } else {
                 valArr[0] = Random.Range(maxEmpty2Value, maxValue).ToString();
@@ -89,7 +89,7 @@ public class Excel4Unity : Editor {
             }
         } else if (emptyNum == 2) {
             if (symbolVal == "+") {
-                valArr[0] = Random.Range(5, maxValue).ToString();
+                valArr[0] = Random.Range(5, maxValue - 25).ToString();
                 valArr[1] = Random.Range(1, maxValue - int.Parse(valArr[0])).ToString();
             } else {
                 valArr[0] = Random.Range(maxEmpty2Value, maxValue).ToString();
@@ -101,33 +101,48 @@ public class Excel4Unity : Editor {
     }
     
     private static string[] GetCaleArrFeiZai() {
-        var emptyNum = Random.Range(0, 2);
+        var emptyNum = Random.Range(2, 3);
         var symbolVal = Random.Range(0, 2) == 0 ? "+" : "-";
         var valArr = new[] { "", "", "", symbolVal };
         valArr[emptyNum] = "(  )";
+        var maxNum = 50;
         if (emptyNum == 0) {
             if (symbolVal == "+") {
-                valArr[1] = Random.Range(1, 20).ToString();
-                valArr[2] = Random.Range(int.Parse(valArr[1]), 20).ToString();
+                valArr[1] = Random.Range(1, maxNum - 25).ToString();
+                valArr[2] = Random.Range(int.Parse(valArr[1]), maxNum).ToString();
             } else {
-                valArr[1] = Random.Range(1, 10).ToString();
-                valArr[2] = Random.Range(0, 20 - int.Parse(valArr[1])).ToString();
+                valArr[1] = Random.Range(1, maxNum - 10).ToString();
+                if (int.Parse(valArr[1]) < 10) {
+                    valArr[2] = Random.Range(maxNum - 25, maxNum - int.Parse(valArr[1])).ToString();
+                } else {
+                    valArr[2] = Random.Range(0, maxNum - int.Parse(valArr[1])).ToString();
+                }
+                
             }
         } else if (emptyNum == 1) {
             if (symbolVal == "+") {
-                valArr[0] = Random.Range(1, 20).ToString();
-                valArr[2] = (Random.Range(int.Parse(valArr[0]), 20)).ToString();
+                valArr[0] = Random.Range(1, maxNum - 25).ToString();
+                if (int.Parse(valArr[0]) < 10) {
+                    valArr[2] = (Random.Range(maxNum - 25, maxNum)).ToString();
+                } else {
+                    valArr[2] = (Random.Range(int.Parse(valArr[0]), maxNum)).ToString();
+                }
+
             } else {
-                valArr[0] = Random.Range(10, 20).ToString();
-                valArr[2] = Random.Range(10, int.Parse(valArr[0]) + 1).ToString();
+                valArr[0] = Random.Range(maxNum - 10, maxNum).ToString();
+                valArr[2] = Random.Range(1, int.Parse(valArr[0]) + 1).ToString();
             }
         } else if (emptyNum == 2) {
             if (symbolVal == "+") {
-                valArr[0] = Random.Range(5, 20).ToString();
-                valArr[1] = Random.Range(1, 20 - int.Parse(valArr[0])).ToString();
+                valArr[0] = Random.Range(1, maxNum - 25).ToString();
+                if (int.Parse(valArr[0]) < 10) {
+                    valArr[1] = Random.Range(maxNum - 25, maxNum - int.Parse(valArr[0])).ToString();
+                } else {
+                    valArr[1] = Random.Range(1, maxNum - int.Parse(valArr[0])).ToString();
+                }
             } else {
-                valArr[0] = Random.Range(10, 20).ToString();
-                valArr[1] = (Random.Range(0, 10)).ToString();
+                valArr[0] = Random.Range(maxNum - 25, maxNum).ToString();
+                valArr[1] = Random.Range(1, maxNum - int.Parse(valArr[0])).ToString();
             }
         }
 
